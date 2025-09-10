@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDIAMART LAOS - Online Food Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #e74c3c;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            padding: 3rem 1rem;
+            text-align: center;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            border-radius: 8px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .menu-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .menu-category {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .category-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px dashed #eee;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .menu-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .item-name {
+            font-weight: 500;
+        }
+        
+        .item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .order-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .cart {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 2px solid var(--primary);
+            padding-top: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .order-template {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .template-text {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">INDIAMART LAOS</div>
+        <div class="tagline">Delicious food delivered to your doorstep</div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h2>Welcome to INDIAMART LAOS</h2>
+                <p>Dear Golden Triangle people, for the first time you can order foods online, no hassle. Order food and get delivered on time, pay on delivery!</p>
+                <a href="#order" class="btn">Order Now</a>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2 class="section-title">Our Menu</h2>
+            
+            <div class="menu-category">
+                <h3 class="category-title">TIFFIN</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <span class="item-name">Poori masala</span>
+                        <span class="item-price">20 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Chapathi</span>
+                        <span class="item-price">20 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Onion uttappam</span>
+                        <span class="item-price">20 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Egg dosa</span>
+                        <span class="item-price">20 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Poha</span>
+                        <span class="item-price">15 yuan</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <h3 class="category-title">Sandwich</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <span class="item-name">Egg fry sandwich</span>
+                        <span class="item-price">10 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Egg salad sandwich</span>
+                        <span class="item-price">10 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Chicken salad sandwich</span>
+                        <span class="item-price">20 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">French toast sandwich</span>
+                        <span class="item-price">10 yuan</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Bread butter jam</span>
+                        <span class="item-price">10 yuan</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More menu categories would go here -->
+            
+        </div>
+
+        <div id="order" class="order-section">
+            <h2 class="section-title">Place Your Order</h2>
+            
+            <div class="cart">
+                <h3>Your Order</h3>
+                <div id="cart-items">
+                    <!-- Cart items will be added here dynamically -->
+                    <p>Your cart is empty. Select items from the menu.</p>
+                </div>
+                <div class="cart-total">
+                    Total: <span id="total-amount">0</span> yuan
+                </div>
+            </div>
+            
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" class="form-control" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="landmark">Landmark</label>
+                    <input type="text" id="landmark" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp Number</label>
+                    <input type="tel" id="whatsapp" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telegram">Telegram ID</label>
+                    <input type="text" id="telegram" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="delivery-time">Expected Delivery Time</label>
+                    <input type="datetime-local" id="delivery-time" class="form-control" required>
+                </div>
+                
+                <button type="button" id="generate-order" class="btn">Generate Order</button>
+            </form>
+            
+            <div id="order-template" class="order-template">
+                <h3>Copy and send this to @flashdeliveryIML on Telegram</h3>
+                <div class="template-text" id="template-text"></div>
+                <button id="copy-btn" class="btn">Copy Text</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-btn" onclick="openAdmin()">
+        <i class="fas fa-lock"></i>
+    </div>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <div class="form-group">
+                <label for="admin-user">Username</label>
+                <input type="text" id="admin-user" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="admin-pass">Password</label>
+                <input type="password" id="admin-pass" class="form-control">
+            </div>
+            <button class="btn" onclick="loginAdmin()">Login</button>
+            <button class="btn" style="background: #95a5a6;" onclick="closeAdmin()">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>INDIAMART LAOS &copy; 2023 - Delivering delicious food across the Golden Triangle</p>
+        <p>Contact us on Telegram: @flashdeliveryIML</p>
+    </footer>
+
+    <script>
+        // Sample data for menu items (in a real app, this would come from a database)
+        const menuItems = {
+            "tiffin": [
+                { name: "Poori masala", price: 20 },
+                { name: "Chapathi", price: 20 },
+                { name: "Onion uttappam", price: 20 },
+                { name: "Egg dosa", price: 20 },
+                { name: "Poha", price: 15 }
+            ],
+            "sandwich": [
+                { name: "Egg fry sandwich", price: 10 },
+                { name: "Egg salad sandwich", price: 10 },
+                { name: "Chicken salad sandwich", price: 20 },
+                { name: "French toast sandwich", price: 10 },
+                { name: "Bread butter jam", price: 10 }
+            ],
+            // More menu items would be added here
+        };
+        
+        let cart = [];
+        let totalAmount = 0;
+        
+        // Function to add item to cart
+        function addToCart(itemName, itemPrice) {
+            cart.push({ name: itemName, price: itemPrice });
+            totalAmount += itemPrice;
+            updateCart();
+        }
+        
+        // Function to update cart display
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total-amount');
+            
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty. Select items from the menu.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <span>${item.name}</span>
+                        <span>${item.price} yuan</span>
+                    `;
+                    cartItems.appendChild(itemElement);
+                });
+            }
+            
+            totalElement.textContent = totalAmount;
+        }
+        
+        // Function to generate order template
+        document.getElementById('generate-order').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const landmark = document.getElementById('landmark').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const telegram = document.getElementById('telegram').value;
+            const deliveryTime = document.getElementById('delivery-time').value;
+            
+            if (!name || !address || !landmark || !whatsapp || !telegram || !deliveryTime) {
+                alert('Please fill all the fields');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items to your order.');
+                return;
+            }
+            
+            let orderText = `NEW ORDER - INDIAMART LAOS\n`;
+            orderText += `Customer: ${name}\n`;
+            orderText += `Address: ${address}\n`;
+            orderText += `Landmark: ${landmark}\n`;
+            orderText += `WhatsApp: ${whatsapp}\n`;
+            orderText += `Telegram: @${telegram}\n`;
+            orderText += `Delivery Time: ${deliveryTime}\n\n`;
+            orderText += `ORDER ITEMS:\n`;
+            
+            cart.forEach(item => {
+                orderText += `${item.name} - ${item.price} yuan\n`;
+            });
+            
+            orderText += `\nTOTAL: ${totalAmount} yuan\n`;
+            orderText += `Payment: Cash on Delivery`;
+            
+            document.getElementById('template-text').textContent = orderText;
+            document.getElementById('order-template').style.display = 'block';
+        });
+        
+        // Function to copy order text
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const text = document.getElementById('template-text').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Order copied! Please send it to @flashdeliveryIML on Telegram.');
+            });
+        });
+        
+        // Admin panel functions
+        function openAdmin() {
+            document.getElementById('admin-modal').style.display = 'flex';
+        }
+        
+        function closeAdmin() {
+            document.getElementById('admin-modal').style.display = 'none';
+        }
+        
+        function loginAdmin() {
+            const username = document.getElementById('admin-user').value;
+            const password = document.getElementById('admin-pass').value;
+            
+            if (username === 'laoind007' && password === 'Spacebar') {
+                alert('Login successful! Admin panel would open here.');
+                // In a real application, you would redirect to an admin dashboard
+                closeAdmin();
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const itemName = this.querySelector('.item-name').textContent;
+                    const itemPrice = parseInt(this.querySelector('.item-price').textContent);
+                    addToCart(itemName, itemPrice);
+                });
+            });
+            
+            // Set minimum delivery time to current time + 30 minutes
+            const now = new Date();
+            now.setMinutes(now.getMinutes() + 30);
+            const minDate = now.toISOString().slice(0, 16);
+            document.getElementById('delivery-time').min = minDate;
+        });
+    </script>
+</body>
+</html>
